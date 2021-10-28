@@ -6,6 +6,8 @@
 package utf04;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -19,9 +21,12 @@ public class AlumnoAleatorio {
     public static void main(String[] args) {
         //declaracion variables
         ArrayList<String> AlumnoAleatorio = new ArrayList<String>();
+        //ArrayList<String> AlumnoContadorP = new ArrayList<String>();
+        Map<String, Integer> AlumnoContadorP = new HashMap<String, Integer>();
+        String opcion;int contador=1;
         //constantes
         final ImageIcon icon = new ImageIcon("surprise.png");
-        
+
         //initialisation de la lista
         AlumnoAleatorio.add("Edgardo Gabriel Allende");
         AlumnoAleatorio.add("Juan Antonio Barbero Mena");
@@ -51,17 +56,34 @@ public class AlumnoAleatorio {
         AlumnoAleatorio.add("Alejandro Santaella Urbano");
         AlumnoAleatorio.add("Adrián Vallejo Robles");
         AlumnoAleatorio.add("Rubén Vélez Simón");
-        
+
         //saca uno aleatorio
         Random random = new Random();
-        int randomAlumno = (int) (Math.random() * AlumnoAleatorio.size());
+        
         //JOptionPane.showConfirmDialog(null, (AlumnoAleatorio.get(randomAlumno)));
-        JOptionPane.showMessageDialog(null, "Alumno es: " + (AlumnoAleatorio.get(randomAlumno)), "Alumno Aleatorio", JOptionPane.INFORMATION_MESSAGE,icon);
-        AlumnoAleatorio.remove(randomAlumno);
+        do {
+
+            opcion = JOptionPane.showInputDialog(null, "si quieres ejecutar el programa entrar S si no N");
         
-        //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
-        
-      
+            if (opcion.equalsIgnoreCase("s")) {
+                 
+                int randomAlumno = (int) (Math.random() * AlumnoAleatorio.size());
+                JOptionPane.showMessageDialog(null, "Alumno es: " + (AlumnoAleatorio.get(randomAlumno)), "Alumno Aleatorio", JOptionPane.INFORMATION_MESSAGE, icon);
+                //Añadir el alumno eligado en la lista de positivos
+                AlumnoContadorP.put(AlumnoAleatorio.get(randomAlumno),contador);
+                contador++;
+                System.out.println(AlumnoContadorP);
+                contador=0;
+                //remove el alumno eligedo de la lista para que no sale otravez
+               // AlumnoAleatorio.remove(randomAlumno);
+               // System.out.println(AlumnoAleatorio);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Termina");
+            }
+           
+
+        } while (!opcion.equalsIgnoreCase("n"));
+        System.out.println(AlumnoContadorP);
     }
 
 }
